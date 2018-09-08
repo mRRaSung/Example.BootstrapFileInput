@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+</div>
+
+<link href="~/Content/temp/fileinput.min.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/temp/purify.min.js"></script>
+<script src="~/Scripts/plugins/piexif.min.js"></script>
+<script src="~/Scripts/temp/fileinput.min.js"></script>
+<script src="~/Scripts/locales/zh-TW.js"></script>
+
+<div class="file-loading">
+    <input id="uploader" name="files" multiple type="file" accept="image/*">
+</div>
+<script>
+    $("#uploader").fileinput({
+        language: "zh-TW",
+        uploadUrl: "@Url.Action("Upload", "Home", new { pid = "1234" })",
+        deleteUrl: "@Url.Action("Delete", "Home")",
+        maxFileCount: 6,
+        maxFileSize: 5120,
+        validateInitialCount: true,
+        overwriteInitial: false,
+        layoutTemplates: { actionDrag: '', },
+        allowedFileExtensions: ["jpg", "png", "gif"],
+        initialPreview: [
+            "<img class='kv-preview-data file-preview-image' src='/Content/1.jpg'>",
+            "<img class='kv-preview-data file-preview-image' src='/Content/2.png'>",
+        ],
+        initialPreviewConfig: [
+            { caption: "1.jpg", size: 628782, key: 1 },
+            { caption: "2.jpg", size: 982873, key: 2 },
+        ],
+    }).on("filebatchselected", function (event, files) {
+        $(this).fileinput("upload");
+    });
+
+    //$('#uploader').on('fileuploaded', function (event, data) {
+    //    console.log(event);
+    //    console.log(data);
+    //});
+</script>
